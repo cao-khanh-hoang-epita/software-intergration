@@ -23,6 +23,31 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 
+// Update
+app.put('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        if (!user) {
+            return res.status(404).send();
+        }
+        res.send(user);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+// Delete
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) {
+            return res.status(404).send();
+        }
+        res.send(user);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 
 app.listen(config.PORT, () => {
     console.log(`Server is running on port ${config.PORT}`);
