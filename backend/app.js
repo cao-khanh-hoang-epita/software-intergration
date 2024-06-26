@@ -6,7 +6,7 @@ const config = require('./config');
 const app = express();
 app.use(express.json());
 
-mongoose.connect(config.DB_URI, {
+mongoose.connect("mongodb://0.0.0.0:27017", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
